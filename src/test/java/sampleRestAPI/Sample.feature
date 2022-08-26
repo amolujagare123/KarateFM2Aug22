@@ -29,6 +29,7 @@ Feature: All sample Rest API requests
     Scenario: check the get all chat user request
       Given url 'http://localhost/chat/lhc_web/index.php/site_admin'
       And path '/restapi/getusers'
+      And header Authorization = call read('basic-auth.js') {username:"admin",password:"admin123"}
       When method get
       Then status 200
 
