@@ -89,3 +89,85 @@ Feature: All sample API Tests
 
 
 
+  @SamplePostSchemaValidation
+  Scenario: Check the post request of sample user
+    Given url 'https://reqres.in'
+    And path '/api/users'
+    And request
+    """
+      {
+      "name": "morpheus",
+      "job": "leader"
+      }
+    """
+    When method post
+    Then status 201
+    And match response ==
+    """
+      {
+        "name": '#string',
+        "job": '#string',
+        "id": '#string',
+        "createdAt": '#string'
+      }
+    """
+
+  @getSingleChatUsersSchemaValidation
+  Scenario: check the get Single chat user request
+    Given url 'http://localhost/chat/lhc_web/index.php/site_admin'
+    And path '/restapi/user/139'
+    And header Authorization = call read('basic-auth.js') {username:"admin",password:"admin123"}
+    When method get
+    Then status 200
+    And match response !=
+    """
+    {"error":'#boolean',"result":'#string'}
+    """
+
+  @getSingleChatUserValidSchemaValidation
+  Scenario: check the get Single chat user request
+    Given url 'http://localhost/chat/lhc_web/index.php/site_admin'
+    And path '/restapi/user/139'
+    And header Authorization = call read('basic-auth.js') {username:"admin",password:"admin123"}
+    When method get
+    Then status 200
+    And match response ==
+    """
+      {
+        "error": '#boolean',
+        "result": {
+            "id": '#number',
+            "username": '#string',
+            "password": '#string',
+            "email": '#string',
+            "name": '#string',
+            "filepath": '#string',
+            "filename": '#string',
+            "surname": '#string',
+            "job_title": '#string',
+            "departments_ids": '#string',
+            "skype": '#string',
+            "xmpp_username": '#string',
+            "disabled":'#string',
+            "hide_online": '#number',
+            "all_departments": '#number',
+            "invisible_mode": '#number',
+            "time_zone": '#string',
+            "rec_per_req": '#number',
+            "session_id": '#string',
+            "chat_nickname":'#string',
+            "operation_admin": '#string',
+            "inactive_mode": '#number',
+            "max_active_chats": '#number',
+            "auto_accept": '#number',
+            "exclude_autoasign": '#number',
+            "pswd_updated": '#number',
+            "always_on": '#number',
+            "avatar": '#string',
+            "attr_int_1": '#number',
+            "attr_int_2": '#number',
+            "attr_int_3": '#number'
+        }
+    }
+
+"""

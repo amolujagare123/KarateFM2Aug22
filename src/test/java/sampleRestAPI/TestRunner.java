@@ -17,9 +17,9 @@ public class TestRunner {
     @Test
     Karate runTest3()
     {
-        return Karate.run("Sample2")
+        return Karate.run("Sample2","Sample","DeckOfcards")
                 .relativeTo(getClass())
-                .tags("@getAllChatUsers")
+                .tags("@shuffleCardsVariable")
                ;
     }
 

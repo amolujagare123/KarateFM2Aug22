@@ -41,4 +41,4 @@ Feature: All Data driven examples
     When method post
     Then status 201
     Examples:
-      | dataFile |               |
+      | dataFile |
