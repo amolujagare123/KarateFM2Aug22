@@ -14,13 +14,22 @@ Given path '/api/deck/' + id + '/draw/'
   And param  count = 2
   When method get
   Then status 200
+  And match response ==
+  """
+  {
+	"success": '#boolean',
+	"deck_id": '#string',
+	"cards": '#[] #object',
+	"remaining": '#number'
+  }
+  """
 
   @shuffleCardsVariable
   Scenario: check the shuffle cards request
     Given url 'https://deckofcardsapi.com'
     And path '/api/deck/new/shuffle/'
     * def myId = function() {return 10;}
-    * print  "value = "  ,  myId()
+    * print  "value = "  +  myId()
     * def dCount = 2
     And param  deck_count = dCount
     When method get
